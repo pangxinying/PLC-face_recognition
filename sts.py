@@ -12,12 +12,15 @@ def face_recognition_callback(msg):
         rospy.loginfo("Access granted.")
         tts = gTTS(text='Access granted.Unlocking the door...', lang='en')
         tts.save("/tmp/granted.mp3")
-        os.system("mpg321 /tmp/granted.mp3") 
+        os.system("mpg321 /tmp/granted.mp3")  
+
     elif msg.data == "denied":
         rospy.loginfo("Access denied.Keeping the door locked...")
         tts = gTTS(text='Access denied.', lang='en')
         tts.save("/tmp/denied.mp3")
-        os.system("mpg321 /tmp/denied.mp3")
+
+        os.system("mpg321 /tmp/denied.mp3")  
+
     else:
         rospy.logwarn(f"Unknown message received: {msg.data}")
 
@@ -32,3 +35,4 @@ if __name__ == '__main__':
         face_recognition_subscriber()
     except rospy.ROSInterruptException:
         pass
+

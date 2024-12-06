@@ -10,10 +10,11 @@ import time
 
 def calculate_distance(face_location, frame_width):
 
-    known_face_width = 14.0 
+    known_face_width = 14.0  
     focal_length = 800 
 
-    face_width_in_frame = face_location[2] - face_location[0]  
+    face_width_in_frame = face_location[2] - face_location[0] 
+
 
     distance = (known_face_width * focal_length) / face_width_in_frame
     return distance
@@ -44,7 +45,8 @@ def face_recognition_publisher():
         rospy.logwarn("Failed to open camera!")
         return
 
-    last_publish_time = time.time() 
+    last_publish_time = time.time()  
+
 
     while not rospy.is_shutdown():
         ret, frame = video_capture.read()
@@ -75,7 +77,8 @@ def face_recognition_publisher():
                     pub.publish("granted")
                 else:
                     rospy.loginfo("Face too far from camera, denied")
-                    pub.publish("denied") 
+                    pub.publish("denied")  
+
                 
                 last_publish_time = current_time 
 
@@ -101,9 +104,9 @@ def face_recognition_publisher():
 
                 cv2.imwrite(f"{face_data_dir}/{new_face_name}.jpg", frame)
                 rospy.loginfo(f"New face {new_face_name} added!")
-                pub.publish("denied")  # Deny access while registering the face
+                pub.publish("denied")  
 
-        if key == ord('q'):  # Quit the program
+        if key == ord('q'):
             break
 
     video_capture.release()
